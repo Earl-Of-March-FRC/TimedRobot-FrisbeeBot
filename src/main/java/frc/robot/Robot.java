@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -30,10 +31,10 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  private final WPI_TalonSRX frontLeft = new WPI_TalonSRX(0);
-  private final WPI_TalonSRX frontRight = new WPI_TalonSRX(0);
-  private final WPI_TalonSRX backLeft = new WPI_TalonSRX(0);
-  private final WPI_TalonSRX backRight = new WPI_TalonSRX(0);
+  private final WPI_VictorSPX frontLeft = new WPI_VictorSPX(1);
+  private final WPI_VictorSPX frontRight = new WPI_VictorSPX(3);
+  private final WPI_VictorSPX backLeft = new WPI_VictorSPX(0);
+  private final WPI_VictorSPX backRight = new WPI_VictorSPX(2);
 
   private final MotorControllerGroup left = new MotorControllerGroup(frontLeft, backLeft);
   private final MotorControllerGroup right = new MotorControllerGroup(frontRight, backRight);
@@ -42,10 +43,10 @@ public class Robot extends TimedRobot {
 
   XboxController controller = new XboxController(0);
 
-  Compressor comp = new Compressor(PneumaticsModuleType.CTREPCM);
-  DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+  // Compressor comp = new Compressor(PneumaticsModuleType.CTREPCM);
+  // DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
 
-  private final WPI_TalonSRX spinner = new WPI_TalonSRX(0);
+  // private final WPI_TalonSRX spinner = new WPI_TalonSRX(0);
 
 
   /**
@@ -90,12 +91,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    drive.arcadeDrive(controller.getRawAxis(0), controller.getRawAxis(0));
+    drive.arcadeDrive(0.5*controller.getRawAxis(1), 0.5*controller.getRawAxis(4));
 
-    if(controller.getRightTriggerAxis() > 0.90){
-      spinner.set(0.25);
-      solenoid.set(DoubleSolenoid.Value.kForward);
-    }
+    // if(controller.getRightTriggerAxis() > 0.90){
+    //   spinner.set(0.25);
+    //   solenoid.set(DoubleSolenoid.Value.kForward);
+    // }
     
   }
 
